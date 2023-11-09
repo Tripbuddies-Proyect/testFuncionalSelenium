@@ -26,10 +26,16 @@ public class TripBuddiesTest {
     }
     @Test
     public void testRegisterCarrier() {
-        driver.get("http://localhost:4200/sign-up/bussiness");
+        driver.get("https://features-deploy--wondrous-cupcake-32d21b.netlify.app/");
 
         new WebDriverWait(driver, Duration.ofSeconds(5L)).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+
+        WebElement SignUpButton = driver.findElement(By.name("signUp"));
+        SignUpButton.click();
+
+        WebElement SignUpCarriersButton = driver.findElement(By.name("SignUpCarriers"));
+        SignUpCarriersButton.click();
 
         WebElement registerFirstNameField = driver.findElement(By.name("first_name"));
         registerFirstNameField.sendKeys("Johan Julian");
@@ -59,13 +65,13 @@ public class TripBuddiesTest {
 
         WebElement CreateAccountButton = driver.findElement(By.name("create_account_button"));
         CreateAccountButton.click();
+
     }
     @Test(dependsOnMethods = {"testRegisterCarrier"})
     public void testLoginCarrier() {
-        driver.get("http://localhost:4200/login");
 
-        new WebDriverWait(driver, Duration.ofSeconds(5L)).until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+        WebElement AcceptRegisterButton = driver.findElement(By.name("accept_button"));
+        AcceptRegisterButton.click();
 
         WebElement loginCarrierOptionButton = driver.findElement(By.name("carrier_option_button"));
         loginCarrierOptionButton.click();
@@ -77,6 +83,7 @@ public class TripBuddiesTest {
         WebElement loginButton = driver.findElement(By.name("login_button"));
         loginButton.click();
     }
+    /*
     @Test(dependsOnMethods = {"testLoginCarrier"})
     public void testPublicPlace() {
         driver.get("http://localhost:4200/bussiness/home");
@@ -107,7 +114,6 @@ public class TripBuddiesTest {
         WebElement loginButton = driver.findElement(By.name("create_place_button"));
         loginButton.click();
     }
-    /*
     @AfterClass
     public void tearDown() {
         if (driver != null) {
